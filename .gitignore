@@ -1,0 +1,7 @@
+env/
+service/build
+service/vendor
+soa-prod-account.json
+soa-staging-account.json
+.idea/
+sandbox.go
