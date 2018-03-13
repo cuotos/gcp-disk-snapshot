@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 	"log"
-	"gitlab.platformserviceaccount.com/lush-soa/dev-ops/gcp-disk-snapshot/service/globalconfig"
+	"github.com/cuotos/gcp-disk-snapshot/globalconfig"
 )
 
 const (

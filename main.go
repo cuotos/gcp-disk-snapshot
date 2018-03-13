@@ -1,12 +1,12 @@
 package main
 
 import (
-	"gitlab.platformserviceaccount.com/lush-soa/dev-ops/gcp-disk-snapshot/service/client"
-	"gitlab.platformserviceaccount.com/lush-soa/dev-ops/gcp-disk-snapshot/service/disks"
+	"github.com/cuotos/gcp-disk-snapshot/client"
+	"github.com/cuotos/gcp-disk-snapshot/disks"
 	"flag"
 	"log"
-	"gitlab.platformserviceaccount.com/lush-soa/dev-ops/gcp-disk-snapshot/service/snapshot"
-	"gitlab.platformserviceaccount.com/lush-soa/dev-ops/gcp-disk-snapshot/service/globalconfig"
+	"github.com/cuotos/gcp-disk-snapshot/snapshot"
+	"github.com/cuotos/gcp-disk-snapshot/globalconfig"
 	"time"
 	"google.golang.org/api/compute/v1"
 )

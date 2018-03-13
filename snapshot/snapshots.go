@@ -4,7 +4,7 @@ import (
 	"google.golang.org/api/compute/v1"
 	"log"
 	"time"
-	"gitlab.platformserviceaccount.com/lush-soa/dev-ops/gcp-disk-snapshot/service/globalconfig"
+	"github.com/cuotos/gcp-disk-snapshot/globalconfig"
 )
 
 const (
