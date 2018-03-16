@@ -2,11 +2,11 @@ package client
 
 import (
 	"context"
+	"errors"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/compute/v1"
 	"io/ioutil"
 	"net/http"
-	"errors"
 )
 
 func NewComputeClient() (*compute.Service, error) {

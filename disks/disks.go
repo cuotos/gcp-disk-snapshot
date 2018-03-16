@@ -2,19 +2,19 @@ package disks
 
 import (
 	"fmt"
+	"github.com/cuotos/gcp-disk-snapshot/globalconfig"
 	"google.golang.org/api/compute/v1"
+	"log"
 	"strings"
 	"time"
-	"log"
-	"github.com/cuotos/gcp-disk-snapshot/globalconfig"
 )
 
 const (
-	SnapshotDateFormat = `20060102-1504`
+	SnapshotDateFormat  = `20060102-1504`
 	snapshotDescription = `created by the go snapshotter`
 
 	//Snapshot name can be not more that 62 characters, so allow for date and hyphen
-	maxDiskNameLength  = 62 - len(SnapshotDateFormat) - 1
+	maxDiskNameLength = 62 - len(SnapshotDateFormat) - 1
 )
 
 func SnapshotDisks(client *compute.Service, projectId string) error {
@@ -73,7 +73,7 @@ func snapshotDisk(client *compute.Service, disk *compute.Disk, projectId string)
 	snapshot := &compute.Snapshot{}
 	snapshot.Name = snapshotName
 	snapshot.Description = snapshotDescription
-	snapshot.Labels = map[string]string{"auto-snapshot":"true"}
+	snapshot.Labels = map[string]string{"auto-snapshot": "true"}
 
 	// disk.Zone contains the full url of the zone, not just the name
 	splitZoneUrl := strings.Split(disk.Zone, "/")
@@ -93,4 +93,3 @@ func snapshotDisk(client *compute.Service, disk *compute.Disk, projectId string)
 	}
 	return nil
 }
-

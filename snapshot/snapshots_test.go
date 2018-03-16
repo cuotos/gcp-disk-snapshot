@@ -60,4 +60,3 @@ func createTestSnapshots(currentSnapshots int, oldSnapshots int) []*compute.Snap
 
 	return snapshots
 }
-

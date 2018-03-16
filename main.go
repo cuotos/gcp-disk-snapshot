@@ -1,20 +1,20 @@
 package main
 
 import (
+	"flag"
 	"github.com/cuotos/gcp-disk-snapshot/client"
 	"github.com/cuotos/gcp-disk-snapshot/disks"
-	"flag"
-	"log"
-	"github.com/cuotos/gcp-disk-snapshot/snapshot"
 	"github.com/cuotos/gcp-disk-snapshot/globalconfig"
-	"time"
+	"github.com/cuotos/gcp-disk-snapshot/snapshot"
 	"google.golang.org/api/compute/v1"
+	"log"
+	"time"
 )
 
 var (
-	gcpProjectId string
+	gcpProjectId                 string
 	monthsWorthOfSnapshotsToKeep int
-	interval time.Duration
+	interval                     time.Duration
 )
 
 func init() {
@@ -22,7 +22,7 @@ func init() {
 	flag.StringVar(&gcpProjectId, "gcpprojectid", "", "the gcp project id")
 	flag.IntVar(&monthsWorthOfSnapshotsToKeep, "months", 6, "number of months worth of snapshots to keep")
 	dryrun := flag.Bool("dryrun", false, "dryrun")
-	flag.DurationVar(&interval,"interval", time.Duration(time.Hour * 24), "run interval")
+	flag.DurationVar(&interval, "interval", time.Duration(time.Hour*24), "run interval")
 
 	flag.Parse()
 
@@ -47,12 +47,12 @@ func main() {
 	//Ticker doesn't run the first one
 	doit(client)
 
-	for range time.Tick(interval){
+	for range time.Tick(interval) {
 		doit(client)
 	}
 }
 
-func doit(client *compute.Service){
+func doit(client *compute.Service) {
 	err := snapshot.CleanUpSnapshots(client, gcpProjectId, monthsWorthOfSnapshotsToKeep)
 	if err != nil {
 		log.Println(err)
