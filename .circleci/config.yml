@@ -20,7 +20,7 @@ jobs:
             fi
 
             if [ ! -z "${CIRCLE_TAG}" ];then
-              echo DOCKER_IMAGE=${CIRCLE_TAG} >> $BASH_ENV
+              echo DOCKER_IMAGE=stable >> $BASH_ENV
             fi
       - run: 
           command: go test -v ./...
@@ -36,7 +36,5 @@ workflows:
     jobs:
       - stage1:
           filters:
-            branches:
-              only: master
             tags:
-              only: stable
+              only: /^v.*/
