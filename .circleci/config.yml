@@ -30,8 +30,8 @@ jobs:
           command: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - deploy: 
           command: docker push cuotos/gcp-disk-snapshot:${DOCKER_IMAGE}
-
 workflows:
+  version: 2
   un-tagged-build:
     jobs:
       - build:
