@@ -26,7 +26,7 @@ jobs:
  
             BUILD_STRING="" 
             for IMAGE in $DOCKER_IMAGES;do
-              BUILD_STRING="$BUILD_STRING -t cuotos/gcp-disk-snapshot:${IMAGE}
+              BUILD_STRING="$BUILD_STRING -t cuotos/gcp-disk-snapshot:${IMAGE}"
             fi 
 
             echo docker built -t $BUILD_STRING .
