@@ -32,8 +32,9 @@ jobs:
           command: docker push cuotos/gcp-disk-snapshot:${DOCKER_IMAGE}
 workflows:
   version: 2
-  jobs:
-    - stage1:
-        filters:
-          branches:
-            only: master
+  build-and-deploy:
+    jobs:
+      - stage1:
+          filters:
+            branches:
+              only: master
