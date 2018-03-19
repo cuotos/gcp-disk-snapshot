@@ -3,6 +3,7 @@
 # Check https://circleci.com/docs/2.0/language-go/ for more details
 version: 2
 jobs:
+  vi 
   stage1:
     docker:
       - image: circleci/golang:1.9
@@ -12,6 +13,7 @@ jobs:
       - setup_remote_docker
       - run: go test -v ./...
       - run:
+          name: build and deploy docker image
           command: |
             set -x
             if [ "${CIRCLE_BRANCH}" == "master" ];then
@@ -42,4 +44,4 @@ workflows:
       - stage1:
           filters:
             tags:
-              only: /.*/
+              only: /^v.*/
