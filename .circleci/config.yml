@@ -2,12 +2,6 @@
 #
 # Check https://circleci.com/docs/2.0/language-go/ for more details
 version: 2
-general:
-  branches:
-    only:
-    - /feature-.*/
-    - master
-    - stable
 jobs:
   build:
     docker:
@@ -24,6 +18,10 @@ jobs:
             else
               echo DOCKER_IMAGE=${CIRCLE_BRANCH} >> $BASH_ENV
             fi
+
+            if [ ! -z "${CIRCLE_TAG}" ];then
+              echo DOCKER_IMAGE=${CIRCLE_TAG} >> $BASH_ENV
+            fi
       - run: 
           command: go test -v ./...
       - run: 
@@ -32,3 +30,19 @@ jobs:
           command: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - deploy: 
           command: docker push cuotos/gcp-disk-snapshot:${DOCKER_IMAGE}
+
+workflows:
+  un-tagged-build:
+    jobs:
+      - build:
+          filters:
+            tags:
+              ignore: /^v.*/
+  tagged-build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore: /.*/
+      tags:
+        only: /^v.*/
