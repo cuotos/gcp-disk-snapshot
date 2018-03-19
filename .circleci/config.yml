@@ -37,8 +37,8 @@ workflows:
       jobs:
         - stage1:
             filters:
-              tags:
-                ignore: /.*/
+              branches:
+                only: master
     tagged-builds:
       jobs:
         - stage1:
