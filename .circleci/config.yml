@@ -10,26 +10,29 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - run: go test -v ./...
       - run:
           command: |
             set -x
             if [ ${CIRCLE_BRANCH} == "master" ];then
-              echo DOCKER_IMAGE=latest >> $BASH_ENV
+              DOCKER_IMAGES=latest
             else
-              echo DOCKER_IMAGE=${CIRCLE_BRANCH} >> $BASH_ENV
+              DOCKER_IMAGE=${CIRCLE_BRANCH}
             fi
 
             if [ ! -z "${CIRCLE_TAG}" ];then
-              echo DOCKER_IMAGE=stable >> $BASH_ENV
+              DOCKER_IMAGES="stable ${CIRCLE_TAG}"
             fi
-      - run: 
-          command: go test -v ./...
-      - run: 
-          command: docker build -t cuotos/gcp-disk-snapshot:${DOCKER_IMAGE} .
-      - run: 
-          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
-      - deploy: 
-          command: docker push cuotos/gcp-disk-snapshot:${DOCKER_IMAGE}
+ 
+            BUILD_STRING="" 
+            for IMAGE in $DOCKER_IMAGES;do
+              BUILD_STRING="$BUILD_STRING -t cuotos/gcp-disk-snapshot:${IMAGE}
+            fi 
+
+            echo docker built -t $BUILD_STRING .
+            #docker build -t cuotos/gcp-disk-snapshot:${DOCKER_IMAGE} .
+            #docker login -u $DOCKER_USER -p $DOCKER_PASS
+            #docker push cuotos/gcp-disk-snapshot:${DOCKER_IMAGE}
 workflows:
   version: 2
   build-and-deploy:
