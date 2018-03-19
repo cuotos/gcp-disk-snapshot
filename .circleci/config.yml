@@ -14,7 +14,7 @@ jobs:
       - run:
           command: |
             set -x
-            if [ ${CIRCLE_BRANCH} == "master" ];then
+            if [ "${CIRCLE_BRANCH}" == "master" ];then
               DOCKER_IMAGES=latest
             else
               DOCKER_IMAGE=${CIRCLE_BRANCH}
@@ -27,7 +27,7 @@ jobs:
             BUILD_STRING="" 
             for IMAGE in $DOCKER_IMAGES;do
               BUILD_STRING="$BUILD_STRING -t cuotos/gcp-disk-snapshot:${IMAGE}"
-            fi 
+            done 
 
             echo docker built -t $BUILD_STRING .
             #docker build -t cuotos/gcp-disk-snapshot:${DOCKER_IMAGE} .
