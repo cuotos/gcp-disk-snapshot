@@ -6,6 +6,7 @@ general:
   branches:
     only:
     - /feature-.*/
+    - master
 jobs:
   build:
     docker:
