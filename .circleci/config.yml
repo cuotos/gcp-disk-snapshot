@@ -33,17 +33,8 @@ jobs:
 workflows:
   version: 2
   build-and-deploy:
-    un-tagged-build:
       jobs:
         - stage1:
             filters:
               branches:
                 only: master
-    tagged-builds:
-      jobs:
-        - stage1:
-            filters:
-              branches:
-                ignore: /.*/
-              tags:
-                only: stable
