@@ -29,10 +29,12 @@ jobs:
               BUILD_STRING="$BUILD_STRING -t cuotos/gcp-disk-snapshot:${IMAGE}"
             done 
 
-            echo docker built -t $BUILD_STRING .
-            #docker build -t cuotos/gcp-disk-snapshot:${DOCKER_IMAGE} .
-            #docker login -u $DOCKER_USER -p $DOCKER_PASS
-            #docker push cuotos/gcp-disk-snapshot:${DOCKER_IMAGE}
+            docker build $BUILD_STRING .
+
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            for IMAGE in $DOCKER_IMAGES;do
+              docker push cuotos/gcp-disk-snapshot:${IMAGE}
+            done
 workflows:
   version: 2
   build-and-deploy:
