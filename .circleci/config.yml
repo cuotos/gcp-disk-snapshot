@@ -3,7 +3,7 @@
 # Check https://circleci.com/docs/2.0/language-go/ for more details
 version: 2
 jobs:
-  build:
+  stage1:
     docker:
       - image: circleci/golang:1.9
     working_directory: /go/src/github.com/cuotos/gcp-disk-snapshot
@@ -33,7 +33,7 @@ jobs:
 workflows:
   version: 2
   jobs:
-    - build:
+    - stage1:
         filters:
           branches:
             only: master
