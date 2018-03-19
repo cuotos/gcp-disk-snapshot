@@ -39,4 +39,7 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - stage1
+      - stage1:
+          filters:
+            tags:
+              only: /.*/
