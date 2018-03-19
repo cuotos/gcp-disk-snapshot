@@ -1,9 +1,10 @@
 package disks
 
 import (
-	"google.golang.org/api/compute/v1"
 	"testing"
 	"time"
+
+	"google.golang.org/api/compute/v1"
 )
 
 const (

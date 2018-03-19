@@ -2,5 +2,4 @@ soa-prod-account.json
 soa-staging-account.json
 .idea/
 sandbox.go
-vendor
 snapshot-app
