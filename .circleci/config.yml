@@ -38,6 +38,3 @@ workflows:
   build-and-deploy:
     jobs:
       - stage1:
-          filters:
-            tags:
-              only: /^v.*/
