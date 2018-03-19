@@ -32,17 +32,8 @@ jobs:
           command: docker push cuotos/gcp-disk-snapshot:${DOCKER_IMAGE}
 workflows:
   version: 2
-  un-tagged-build:
-    jobs:
-      - build:
-          filters:
-            tags:
-              ignore: /^v.*/
-  tagged-build:
-    jobs:
-      - build:
-          filters:
-            branches:
-              ignore: /.*/
-             tags:
-               only: /^v.*/
+  jobs:
+    - build:
+        filters:
+          branches:
+            only: master
