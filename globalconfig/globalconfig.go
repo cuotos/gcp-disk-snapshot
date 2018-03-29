@@ -1,3 +1,3 @@
 package globalconfig
 
-var DryRun = true
+var DryRun = false
