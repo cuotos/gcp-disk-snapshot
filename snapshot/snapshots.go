@@ -9,6 +9,7 @@ import (
 
 const (
 	DateFormat = `20060102-1504`
+	ForceDeleteTag = `force-delete`
 )
 
 func CleanUpSnapshots(client *compute.Service, gcpProjectId string, monthsToKeep int) error {
@@ -18,9 +19,9 @@ func CleanUpSnapshots(client *compute.Service, gcpProjectId string, monthsToKeep
 		log.Fatalf("failed to get list of snapshots from gcp. %v", err)
 	}
 
-	oldSnapshots := filterOldSnapshots(snapshots, time.Now().AddDate(0, -monthsToKeep, 0))
+	snapshotsToDelete := filterSnapshotsToDelete(snapshots, time.Now().AddDate(0, -monthsToKeep, 0))
 
-	for _, ss := range oldSnapshots {
+	for _, ss := range snapshotsToDelete {
 		err := deleteSnapshot(client, gcpProjectId, ss)
 		if err != nil {
 			log.Print(err)
@@ -31,12 +32,13 @@ func CleanUpSnapshots(client *compute.Service, gcpProjectId string, monthsToKeep
 }
 
 // FilterOldSnapshots accepts a slice of Snapshot Pointers and a time.Time and will deleted snapshots older than this
-func filterOldSnapshots(allSnapshots []*compute.Snapshot, threshold time.Time) []*compute.Snapshot {
+func filterSnapshotsToDelete(allSnapshots []*compute.Snapshot, threshold time.Time) []*compute.Snapshot {
 	var snapshotsToDelete []*compute.Snapshot
 
 	for _, s := range allSnapshots {
+		forceLabel, ok := s.Labels[ForceDeleteTag]
 		createdDate, _ := time.Parse(time.RFC3339Nano, s.CreationTimestamp)
-		if createdDate.Before(threshold) {
+		if createdDate.Before(threshold) || ( ok && forceLabel == "true"){
 			snapshotsToDelete = append(snapshotsToDelete, s)
 		}
 	}
