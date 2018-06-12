@@ -18,7 +18,7 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ];then
               DOCKER_IMAGES=latest
             else
-              DOCKER_IMAGE=${CIRCLE_BRANCH}
+              DOCKER_IMAGES=${CIRCLE_BRANCH}
             fi
 
             if [ ! -z "${CIRCLE_TAG}" ];then
