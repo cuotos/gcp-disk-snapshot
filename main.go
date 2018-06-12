@@ -2,13 +2,14 @@ package main
 
 import (
 	"flag"
+	"log"
+	"time"
+
 	"github.com/cuotos/gcp-disk-snapshot/client"
 	"github.com/cuotos/gcp-disk-snapshot/disks"
 	"github.com/cuotos/gcp-disk-snapshot/globalconfig"
 	"github.com/cuotos/gcp-disk-snapshot/snapshot"
 	"google.golang.org/api/compute/v1"
-	"log"
-	"time"
 )
 
 var (
