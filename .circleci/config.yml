@@ -5,8 +5,8 @@ version: 2
 jobs:
   stage1:
     docker:
-      - image: circleci/golang:1.9
-    working_directory: /go/src/github.com/cuotos/gcp-disk-snapshot
+      - image: circleci/golang:1.11
+    working_directory: /app
     steps:
       - checkout
       - setup_remote_docker

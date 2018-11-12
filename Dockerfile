@@ -1,10 +1,10 @@
-FROM golang:alpine as builder
+FROM golang as builder
 
-COPY . /go/src/github.com/cuotos/gcp-disk-snapshot
+COPY . /app
 
-WORKDIR /go/src/github.com/cuotos/gcp-disk-snapshot
+WORKDIR /app
 
-RUN go build -o /tmp/snapshot /go/src/github.com/cuotos/gcp-disk-snapshot/main.go
+RUN go build -o /tmp/snapshot 
 
 FROM alpine
 
