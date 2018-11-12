@@ -3,3 +3,4 @@ soa-staging-account.json
 .idea/
 sandbox.go
 snapshot-app
+/vendor
